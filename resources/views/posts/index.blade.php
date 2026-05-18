@@ -9,20 +9,35 @@
         <div class="max-w-3xl mx-auto space-y-6">
 
             @foreach($posts as $post)
-                <div class="bg-white shadow rounded p-6">
-                    <p class="font-bold">{{ $post->user->name }}</p>
+            <div class="bg-white shadow rounded p-6">
+                <p class="font-bold">{{ $post->user->name }}</p>
 
-                    <img
-                        src="{{ asset('storage/' . $post->image) }}"
-                        class="w-full mt-4 rounded"
-                    >
+                <img
+                    src="{{ asset('storage/' . $post->image) }}"
+                    class="w-full mt-4 rounded">
 
-                    <p class="mt-4">{{ $post->caption }}</p>
+                <p class="mt-4">{{ $post->caption }}</p>
 
-                    <p class="text-sm text-gray-500 mt-2">
-                        {{ $post->created_at->format('Y/m/d H:i') }}
-                    </p>
-                </div>
+                <p class="text-sm text-gray-500 mt-2">
+                    {{ $post->created_at->format('Y/m/d H:i') }}
+                </p>
+
+                <form method="POST" action="{{ route('posts.like', $post) }}" class="mt-4">
+                    @csrf
+
+                    <button type="submit" class="text-2xl">
+                        @if(auth()->user()->likedPosts->contains($post->id))
+                        ❤️
+                        @else
+                        🤍
+                        @endif
+                    </button>
+
+                    <span class="ml-2">
+                        {{ $post->likedUsers->count() }} 件
+                    </span>
+                </form>
+            </div>
             @endforeach
 
         </div>

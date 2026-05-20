@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 });
 
 require __DIR__ . '/auth.php';

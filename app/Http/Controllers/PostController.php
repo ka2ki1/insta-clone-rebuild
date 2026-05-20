@@ -49,4 +49,30 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', '投稿を削除しました');
     }
+
+    public function edit(Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'caption' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        $post->update([
+            'caption' => $request->caption,
+        ]);
+
+        return redirect()->route('posts.index')->with('success', '投稿を更新しました');
+    }
 }

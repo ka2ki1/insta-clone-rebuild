@@ -40,6 +40,12 @@
                     </span>
                 </form>
 
+                <a
+                    href="{{ route('posts.edit', $post) }}"
+                    class="text-blue-600 mr-4">
+                    編集
+                </a>
+
                 @if($post->user_id === auth()->id())
                 <form method="POST" action="{{ route('posts.destroy', $post) }}" class="mt-4">
                     @csrf

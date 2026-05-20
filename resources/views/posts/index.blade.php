@@ -10,7 +10,9 @@
 
             @foreach($posts as $post)
             <div class="bg-white shadow rounded p-6">
-                <p class="font-bold">{{ $post->user->name }}</p>
+                <a href="{{ route('users.show', $post->user) }}" class="font-bold text-blue-600">
+                    {{ $post->user->name }}
+                </a>
 
                 <img
                     src="{{ asset('storage/' . $post->image) }}"

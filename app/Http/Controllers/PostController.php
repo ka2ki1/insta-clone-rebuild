@@ -38,4 +38,15 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', '投稿しました');
     }
+
+    public function destroy(Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', '投稿を削除しました');
+    }
 }

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +37,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+    Route::post('/users/{user}/follow', [FollowController::class, 'toggle'])->name('users.follow');
 });
 
 require __DIR__ . '/auth.php';

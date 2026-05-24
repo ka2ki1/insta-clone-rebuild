@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
     Route::post('/users/{user}/follow', [FollowController::class, 'toggle'])->name('users.follow');
+
+    Route::get('/feed', [PostController::class, 'feed'])->name('posts.feed');
 });
 
 require __DIR__ . '/auth.php';

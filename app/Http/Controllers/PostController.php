@@ -75,4 +75,16 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', '投稿を更新しました');
     }
+
+    public function feed()
+    {
+        $followingIds = Auth::user()->followings()->pluck('users.id');
+
+        $posts = Post::with(['user', 'likedUsers', 'comments.user'])
+        ->whereIn('user_id', $followingIds)
+            ->latest()
+            ->get();
+
+        return view('posts.index', compact('posts'));
+    }
 }
